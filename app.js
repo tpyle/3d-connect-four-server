@@ -3,10 +3,18 @@
 const express = require('express');
 const cors = require('cors');
 const config = require('config');
+const session = require('express-session');
+const redis = require('redis');
+const RedisStore = require('connect-redis')(session);
+const redisClient = redis.createClient();
 
 const api = require('./api');
 const logger = require('./logger');
 const logMiddleware = require('./log-middleware');
+
+
+const HOUR = 60 * 60 * 1000;
+
 
 const app = express();
 
@@ -15,6 +23,17 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(logMiddleware(logger));
+
+app.use(session({
+    cookie: {
+        maxAge: 6 * HOUR,
+    },
+    name: 'sid',
+    store: new RedisStore({ client: redisClient }),
+    secret: config.server.sessionSecrets,
+    resave: false,
+    saveUninitialized: false,
+}));
 
 app.use(cors({
     origin: (origin, cb) => {

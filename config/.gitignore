@@ -1,0 +1,3 @@
+# All JSON files but the default
+*.json
+!default.json
