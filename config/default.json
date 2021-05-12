@@ -1,0 +1,12 @@
+{
+    "server": {
+        "port": 3000
+    },
+    "client": {
+        "hostnames": []
+    },
+    "logging": {
+        "level": "info",
+        "path": "/var/log/3dc4"
+    }
+}

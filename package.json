@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "eslint --ignore-path .gitignore .",
+    "test": "NODE_ENV=testing mocha test/index.js",
+    "start": "node index.js",
+    "coverage": "nyc npm run test"
   },
   "repository": {
     "type": "git",
@@ -17,9 +20,22 @@
   },
   "homepage": "https://github.com/tpyle/3d-connect-four-server#readme",
   "dependencies": {
+    "config": "^3.3.6",
     "connect-redis": "^5.2.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "redis": "^3.1.2"
+    "redis": "^3.1.2",
+    "uuid": "^8.3.2",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "eslint": "^7.26.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "mocha": "^8.4.0",
+    "nyc": "^15.1.0"
   }
 }
